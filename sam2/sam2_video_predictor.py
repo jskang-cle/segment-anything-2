@@ -4,6 +4,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
+from typing import Callable
 import warnings
 from collections import OrderedDict
 
@@ -43,6 +44,7 @@ class SAM2VideoPredictor(SAM2Base):
         offload_video_to_cpu=False,
         offload_state_to_cpu=False,
         async_loading_frames=False,
+        progress_callback: Callable[[int, int], None]=None,
     ):
         """Initialize an inference state."""
         compute_device = self.device  # device of the model
@@ -52,6 +54,7 @@ class SAM2VideoPredictor(SAM2Base):
             offload_video_to_cpu=offload_video_to_cpu,
             async_loading_frames=async_loading_frames,
             compute_device=compute_device,
+            progress_callback=progress_callback,
         )
         inference_state = {}
         inference_state["images"] = images
